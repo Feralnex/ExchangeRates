@@ -1,0 +1,17 @@
+﻿@page
+@using Microsoft.Extensions.Localization
+@model ErrorModel
+@inject IStringLocalizer<ErrorModel> Localizer
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">@Localizer["Error"]</h1>
+<h2 class="text-danger">@Localizer["ErrorPrompt"]'</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>@Localizer["RequestID"]:</strong> <code>@Model.RequestId</code>
+    </p>
+}

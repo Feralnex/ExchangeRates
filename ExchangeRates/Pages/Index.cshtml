@@ -1,0 +1,17 @@
+﻿@page
+@using Microsoft.Extensions.Localization
+@model IndexModel
+@inject IStringLocalizer<IndexModel> Localizer
+@{
+    ViewData["Title"] = Localizer["ExchangeRates"];
+}
+
+@if (Model.MidExchangeRates.Count == 0 &&
+      Model.TradeExchangeRates.Count == 0)
+{
+    <partial name="/Pages/PartialViews/Index/_Error.cshtml" />
+}
+else
+{
+    <partial name="/Pages/PartialViews/Index/_ExchangeRates.cshtml" model=Model />
+}

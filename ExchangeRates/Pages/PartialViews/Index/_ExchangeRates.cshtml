@@ -1,0 +1,75 @@
+﻿@using Microsoft.Extensions.Localization
+@using Newtonsoft.Json
+@model IndexModel
+@inject IStringLocalizer<IndexModel> Localizer
+
+<div>
+    <div class="d-flex justify-content-center">
+        @foreach (var item in Model.MidExchangeRates)
+        {
+            <button class="btn" onclick="toggle('@item.Table')">@Localizer["Table"] @item.Table</button>
+        }
+
+        @foreach (var item in Model.TradeExchangeRates)
+        {
+            <button class="btn" onclick="toggle('@item.Table')">@Localizer["Table"] @item.Table</button>
+        }
+    </div>
+
+    @foreach (var item in Model.MidExchangeRates)
+    {
+        <div class="d-none" id="@item.Table">
+            <partial name="_MidExchangeRates.cshtml" model=item />
+        </div>
+    }
+
+    @foreach (var item in Model.TradeExchangeRates)
+    {
+        <div class="d-none" id="@item.Table">
+            <partial name="_TradeExchangeRates.cshtml" model=item />
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    window.onload = function() {
+        let midExchangeRates = @Html.Raw(JsonConvert.SerializeObject(Model.MidExchangeRates));
+        let tradeExchangeRates = @Html.Raw(JsonConvert.SerializeObject(Model.TradeExchangeRates));
+        let hasData = midExchangeRates.length != 0 && tradeExchangeRates.length != 0;
+
+        if (hasData)
+        {
+            if (midExchangeRates.length != 0) show(midExchangeRates[0].Table);
+            else show(tradeExchangeRates[0].Table);
+        }
+    }
+
+    function toggle(id) {
+        let midExchangeRates = @Html.Raw(JsonConvert.SerializeObject(Model.MidExchangeRates));
+        let tradeExchangeRates = @Html.Raw(JsonConvert.SerializeObject(Model.TradeExchangeRates));
+
+        for (let index = 0; index < midExchangeRates.length; index++) {
+            let table = midExchangeRates[index].Table;
+
+            if (table != id) hide(table)
+            else show(table);
+        }
+
+        for (let index = 0; index < tradeExchangeRates.length; index++) {
+            let table = tradeExchangeRates[index].Table;
+
+            if (table != id) hide(table)
+            else show(table);
+        }
+    }
+
+    function show(id) {
+        $("#" + id).removeClass("d-none");
+        $("#" + id).addClass("d-block");
+    }
+
+    function hide(id) {
+        $("#" + id).removeClass("d-block");
+        $("#" + id).addClass("d-none");
+    }
+</script>

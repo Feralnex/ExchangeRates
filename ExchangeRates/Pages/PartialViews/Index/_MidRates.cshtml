@@ -1,0 +1,36 @@
+﻿@using Microsoft.Extensions.Localization
+@model IEnumerable<DataAccess.Models.MidRate>
+@inject IStringLocalizer<IndexModel> Localizer
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.Currency.Name)]
+            </th>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.Currency.Code)]
+            </th>
+            <th>
+                @Localizer[@Html.DisplayNameFor(model => model.Mid)]
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Currency.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Currency.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mid)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

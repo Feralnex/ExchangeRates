@@ -1,0 +1,10 @@
+﻿@using Microsoft.Extensions.Localization
+@using DataAccess.Models
+@model MidExchangeRates
+@inject IStringLocalizer<IndexModel> Localizer
+
+<h4>@Localizer["Table"] @Model.Table</h4>
+
+<h6>@Localizer["EffectiveDate"]: @Html.DisplayFor(model => model.EffectiveDate)</h6>
+
+<partial name="_MidRates.cshtml" model="Model.Rates"/>
